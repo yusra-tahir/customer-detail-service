@@ -1,7 +1,5 @@
 package com.vic.entity;
 
-import java.util.List;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,15 +8,19 @@ import lombok.NoArgsConstructor;
  *
  * @author vic
  * date: 06/12/2022
- * purpose: The ENTITY Class for A SHARE LIST
+ * purpose: The CUSTOMER ENTITY Class
  *
  */
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ShareList {
+public class Detail {
 
-	//declare and instantiate a List of the 'Share' object:
-	List<Share> shares;
+	//declare the variables:
+	private int detailId;
+	private int customerId;
+	private int shareId;
+	private String shareType;
+	private int quantity;
 }

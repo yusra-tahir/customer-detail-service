@@ -3,14 +3,14 @@ package com.vic.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.vic.entity.DetailList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import com.vic.entity.Customer;
+import com.vic.entity.Detail;
 import com.vic.entity.CustomerShare;
 import com.vic.entity.Share;
-import com.vic.entity.ShareList;
 
 /**
  *
@@ -37,17 +37,17 @@ public class CustomerDetailServiceImpl implements CustomerDetailService{
 		
 		//instantiate a new 'ShareList' object and use it to call the Share service and store the list in the 'shareList' object:
 		//import it
-		ShareList shareList = restTemplate.getForObject("http://localhost:8084/shares" + customerId, ShareList.class);
+		DetailList detailList = restTemplate.getForObject("http://localhost:8084/details/" + customerId, DetailList.class);
 		
 		
 		//an enhanced 'for' loop to iterate over ShareList to pick every share:
-		for(Share share:shareList.getShares()) {
+		for(Detail detail: detailList.getDetailList()) {
 			//from every share, picking customer ID and calling Customer service:
 			//instantiate a new 'Customer' object:
-			Customer customer = restTemplate.getForObject("http://localhost:8082/customers/" + share.getShareId(), Customer.class);
+			Share share = restTemplate.getForObject("http://localhost:8082/shares/" + detail.getShareId(), Share.class);
 		
 			//instantiate a new 'CustomerShare' object:
-			CustomerShare customerShare = new CustomerShare(share.getShareId(), customer.getShareType(), customer.getQuantity(), customer.getCustomerId(), share.getMarketPrice(), share.getShareName());
+			CustomerShare customerShare = new CustomerShare(share.getShareId(), detail.getShareType(), detail.getQuantity(), detail.getCustomerId(), share.getMarketPrice(), share.getShareName());
 			
 			//add the new 'CustomerShare' object into the 'customerShareList' list:
 			customerShareList.add(customerShare);
