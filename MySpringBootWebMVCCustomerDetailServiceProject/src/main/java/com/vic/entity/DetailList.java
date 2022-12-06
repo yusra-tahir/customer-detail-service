@@ -9,5 +9,5 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DetailList {
-    List<Detail> detailList;
+    List<Detail> details;
 }

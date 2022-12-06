@@ -20,5 +20,5 @@ public class Share {
 	//declare the variables:
 	private int shareId;
 	private String shareName;
-	private double marketPrice;
+	private double sharePrice;
 }

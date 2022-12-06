@@ -37,17 +37,17 @@ public class CustomerDetailServiceImpl implements CustomerDetailService{
 		
 		//instantiate a new 'ShareList' object and use it to call the Share service and store the list in the 'shareList' object:
 		//import it
-		DetailList detailList = restTemplate.getForObject("http://localhost:8084/details/" + customerId, DetailList.class);
+		DetailList details = restTemplate.getForObject("http://localhost:8084/details/" + customerId, DetailList.class);
 		
 		
 		//an enhanced 'for' loop to iterate over ShareList to pick every share:
-		for(Detail detail: detailList.getDetailList()) {
+		for(Detail detail: details.getDetails()) {
 			//from every share, picking customer ID and calling Customer service:
 			//instantiate a new 'Customer' object:
 			Share share = restTemplate.getForObject("http://localhost:8082/shares/" + detail.getShareId(), Share.class);
 		
 			//instantiate a new 'CustomerShare' object:
-			CustomerShare customerShare = new CustomerShare(share.getShareId(), detail.getShareType(), detail.getQuantity(), detail.getCustomerId(), share.getMarketPrice(), share.getShareName());
+			CustomerShare customerShare = new CustomerShare(detail.getCustomerId(), share.getShareName(), detail.getQuantity(), share.getSharePrice(), (detail.getQuantity() * share.getSharePrice()), detail.getShareType());
 			
 			//add the new 'CustomerShare' object into the 'customerShareList' list:
 			customerShareList.add(customerShare);

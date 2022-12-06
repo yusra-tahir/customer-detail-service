@@ -15,7 +15,7 @@ public class ShareResource {
 	@Autowired
 	private ShareService shareService;
 	
-	@GetMapping(path = "/share/{shareId}",produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(path = "/shares/{shareId}",produces = MediaType.APPLICATION_JSON_VALUE)
 	public Share searchShareById(@PathVariable("shareId") int id) {
 		return shareService.searchShareById(id);
 	}
